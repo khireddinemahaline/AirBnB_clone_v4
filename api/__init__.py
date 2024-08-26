@@ -1,2 +1,2 @@
 #!/usr/bin/python3
-"""app/__init__"""
+"""api/__init__"""
