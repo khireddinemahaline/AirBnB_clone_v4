@@ -63,6 +63,8 @@ class DBStorage:
         """
         db_dict = {}
         if cls is not None and cls != '':
+            if isinstance(cls, str):
+                cls = models.classes.get(cls)
             for obj in self.__session.query(cls).all():
                 key = "{}.{}".format(obj.__class__.__name__, obj.id)
                 if obj.__class__.__name__ in models.classes:
@@ -72,12 +74,11 @@ class DBStorage:
             for k, v in models.classes.items():
                 if k != "BaseModel":
                     objs = self.__session.query(v).all()
-                    if len(objs) > 0:
-                        for obj in objs:
-                            key = "{}.{}".format(obj.__class__.__name__,
-                                                 obj.id)
-                            db_dict[key] = obj
-            return db_dict
+                    for obj in objs:
+                        key = "{}.{}".format(obj.__class__.__name__,
+                                             obj.id)
+                        db_dict[key] = obj
+        return db_dict
 
     def new(self, obj):
         """
