@@ -8,6 +8,8 @@ window.addEventListener('load', function () {
             $('#api_status').removeClass('available');
         }
     });
+    // task 4
+    $.ajax("http://0.0.0.0:5001/api/v1/places_search/")
     // task 2
     const amenityIds = {};
     $('input[type=checkbox]').change(function () {
