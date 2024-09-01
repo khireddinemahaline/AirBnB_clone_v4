@@ -108,8 +108,8 @@ class BaseModel:
         dic_obj.update(self.__dict__)  # Copy instance dictionary
         if '_sa_instance_state' in dic_obj:
             del dic_obj['_sa_instance_state']  # Remove SQLAlchemy state
-        if "password" in dic_obj:
-                del dic_obj["password"]
+        if "password" in dic_obj or "_password":
+                del dic_obj["_password"]
         dic_obj.update({
             '__class__': type(self).__name__,  # Add class name
             'created_at': self.created_at.isoformat(),  # Format date as ISO
