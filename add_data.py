@@ -4,22 +4,31 @@
 from models import *
 
 # creation of a State
-state = State(name="California")
-state.save()
+state_A = State(name="California")
+state_B = State(name="Algeria")
+state_A.save()
+state_B.save()
 
 # creation of a City
-city = City(state_id=state.id, name="San Francisco")
-city.save()
+city_A = City(state_id=state_A.id, name="San Francisco")
+city_A.save()
+city_B = City(state_id=state_B.id, name="Khenchala")
+city_B.save()
 
 # creation of a User
-user = User(email="john@snow.com", password="johnpwd")
-user.save()
+user_A = User(email="john@snow.com", password="johnpwd")
+user_A.save()
+user_B = User(email="kimo@snow.com", password="kasa")
+user_B.save()
 
 # creation of 2 Places
-place_1 = Place(user_id=user.id, city_id=city.id, name="House 1")
+place_1 = Place(user_id=user_A.id, city_id=city_A.id, name="House 1")
 place_1.save()
-place_2 = Place(user_id=user.id, city_id=city.id, name="House 2")
+place_2 = Place(user_id=user_A.id, city_id=city_A.id, name="House 2")
 place_2.save()
+place_3 = Place(user_id=user_B.id, city_id=city_B.id, name="Hamam salhin")
+place_3.save()
+
 
 # creation of 3 various Amenity
 amenity_1 = Amenity(name="Wifi")

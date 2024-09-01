@@ -4,6 +4,7 @@ from models import storage
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
+from models.place import Place
 from os import environ
 import uuid
 from flask import Flask, render_template
@@ -18,7 +19,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/2-hbnb/', strict_slashes=False)
+@app.route('/3-hbnb/', strict_slashes=False)
 def hbnb_filter():
     """ HBNB filters """
     states = storage.all(State).values()
@@ -31,10 +32,13 @@ def hbnb_filter():
     amenities = storage.all(Amenity).values()
     amenities = sorted(amenities, key=lambda k: k.name)
 
-    return render_template('2-hbnb.html',
+    places = storage.all(Place).values()
+
+    return render_template('3-hbnb.html',
                            states=st_ct,
                            cache_id = uuid.uuid4(),
-                           amenities=amenities)
+                           amenities=amenities,
+                           places=places)
 
 
 if __name__ == "__main__":

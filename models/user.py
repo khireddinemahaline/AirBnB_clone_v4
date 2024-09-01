@@ -30,6 +30,7 @@ from models.base_model import BaseModel, Base
 from os import getenv
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
+import hashlib
 
 
 class User(BaseModel, Base):
@@ -57,7 +58,7 @@ class User(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") == 'db':
         # In database storage, use SQLAlchemy columns and relationships
         email = Column(String(128), nullable=False)
-        password = Column(String(128), nullable=False)
+        _password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
 
@@ -67,10 +68,46 @@ class User(BaseModel, Base):
         # Relationship with Review class
         reviews = relationship("Review", backref='user',
                                cascade="all, delete, delete-orphan")
+        @property
+        def password(self):
+            """Return the hashed password"""
+            return self._password
+
+        @password.setter
+        def password(self, raw_password):
+            """Hash the password with MD5 before setting it"""
+            self._password = self.hash_password(raw_password)
+
+        def hash_password(self, password):
+            """Hash the password with MD5"""
+            md5_hash = hashlib.md5(password.encode()).hexdigest()
+            return md5_hash
+
+        def verify_password(self, password):
+            """Verify a hashed password"""
+            return self._password == self.hash_password(password)
 
     else:
         # In file storage, attributes are plain strings
         email = ""  # User's email address
-        password = ""  # User's password
+        _password = ""  # User's password
         first_name = ""  # User's first name (optional)
         last_name = ""  # User's last name (optional)
+        @property
+        def password(self):
+            """Return the hashed password"""
+            return self._password
+
+        @password.setter
+        def password(self, raw_password):
+            """Hash the password with MD5 before setting it"""
+            self._password = self.hash_password(raw_password)
+
+        def hash_password(self, password):
+            """Hash the password with MD5"""
+            md5_hash = hashlib.md5(password.encode()).hexdigest()
+            return md5_hash
+
+        def verify_password(self, password):
+            """Verify a hashed password"""
+            return self._password == self.hash_password(password)
