@@ -10,24 +10,30 @@
     border: 1px #FF5A5F solid;
     border-radius: 4px;
 }
-
 .places article .price_by_night {
     color: #FF5A5F;
     border: 4px #FF5A5F solid;
-    border-radius: 100%;
+    border-radius: 50%;
     min-width: 60px;
     height: 60px;
-    font-size: 30px;
+    font-size: 30px; /* Ensure this matches the font-size of h3 inside article */
     float: right;
     position: relative;
-    margin-top: -85px;
+    margin-top: -70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .price_by_night h3 {
- margin-top: 15px;
-}
-.places article h3 {
-    font-size: 30px;
+    margin: 0;
+    line-height: 60px; /* Ensure this matches the height of the circle */
     text-align: center;
+}
+
+.places article h3 {
+    font-size: 30px; /* Ensure this matches the font-size of .price_by_night h3 */
+    text-align: center; /* Center text horizontally */
 }
 
 .places article .information {

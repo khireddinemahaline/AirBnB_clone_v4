@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?cache_id={{ cache_id }}">
     <link type="text/css" rel="stylesheet" href="../static/styles/101-places.css?cache_id={{ cache_id }}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js?cache_id={{ cache_id }}"></script>
-    <script src="../static/scripts/3-hbnb.js?cache_id={{ cache_id }}"></script>
+    <script src="../static/scripts/4-hbnb.js?cache_id={{ cache_id }}"></script>
     <link rel="icon" href="../static/images/icon.png?cache_id={{ cache_id }}" />
     
     <title>HBnB</title>
@@ -48,7 +48,7 @@
 	    </ul>
 	  </div>
 	</div>
-	<button type="button">Search</button>
+	<button type="button" class="button">Search</button>
       </section>
 	  <h1>Places</h1>
 	  {% for place in places %}
@@ -66,9 +66,9 @@
 			<div class="amenities">
 				<h2>Amenities</h2>
 				<ul>
-					<li><span class="icon icon_pet">Pet friendly</span></li>
-					<li><span class="icon icon_tv">Tv</span></li>
-					<li><span class="icon icon_wifi">Wifi</span></li>
+                    {% for aminty in place.amenities %}
+					<li><span class="icon icon_pet">{{ aminty.name }}</span></li>
+                    {% endfor %}
 				</ul>
 			</div>
 		</article>
